@@ -65,42 +65,79 @@ function App() {
         style={{
           position: "absolute",
           top: 10,
-          right: 10, // Move form to the right side
+          right: 10,
           zIndex: 1000,
           background: "white",
-          padding: "10px",
-          borderRadius: "5px",
-          boxShadow: "0 0 10px rgba(0,0,0,0.5)",
+          padding: "20px",
+          borderRadius: "10px",
+          boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+          maxWidth: "300px",
+          fontFamily: "'Arial', sans-serif",
         }}
       >
-        <div>
-          <label>Departure Airport:</label>
+        <div style={{ marginBottom: "15px" }}>
+          <label style={{ display: "block", marginBottom: "5px", fontWeight: "bold" }}>Departure Airport:</label>
           <input
             type="text"
             name="departure"
             value={formData.departure}
             onChange={handleChange}
+            style={{
+              width: "100%",
+              padding: "10px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+              boxSizing: "border-box",
+            }}
           />
         </div>
-        <div>
-          <label>Destination Airport:</label>
+        <div style={{ marginBottom: "15px" }}>
+          <label style={{ display: "block", marginBottom: "5px", fontWeight: "bold" }}>Destination Airport:</label>
           <input
             type="text"
             name="destination"
             value={formData.destination}
             onChange={handleChange}
+            style={{
+              width: "100%",
+              padding: "10px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+              boxSizing: "border-box",
+            }}
           />
         </div>
-        <div>
-          <label>Time of Departure:</label>
+        <div style={{ marginBottom: "15px" }}>
+          <label style={{ display: "block", marginBottom: "5px", fontWeight: "bold" }}>Time of Departure:</label>
           <input
             type="datetime-local"
             name="time"
             value={formData.time}
             onChange={handleChange}
+            style={{
+              width: "100%",
+              padding: "10px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+              boxSizing: "border-box",
+            }}
           />
         </div>
-        <button type="submit">Submit</button>
+        <button
+          type="submit"
+          style={{
+            width: "100%",
+            padding: "10px",
+            borderRadius: "5px",
+            border: "none",
+            background: "#007bff",
+            color: "white",
+            fontWeight: "bold",
+            cursor: "pointer",
+          }}
+        >
+          Submit
+        </button>
       </form>
       <MapContainer center={[9.503243879785233, 102.83203125]} zoom={6} style={{ height: "100%", width: "100%" }}>
         <TileLayer
