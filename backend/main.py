@@ -42,4 +42,11 @@ def get_locations():
 def submit_flight_data(data: FlightData):
     # Process the submitted data here
     print(f"Received data: {data}")
+    process_data(data)
     return {"message": "Data received successfully"}
+
+def process_data(data: FlightData):
+    # Function to process the data
+    print(f"Processing data: {data}")
+    # Add your processing logic here
+

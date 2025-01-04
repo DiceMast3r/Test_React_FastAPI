@@ -17,8 +17,9 @@ function App() {
   const [formData, setFormData] = useState({
     departure: "",
     destination: "",
-    time: "",
+    time: new Date().toISOString().slice(0, 16), // Default to current UTC time
   });
+  const [fetching, setFetching] = useState(false); // State to manage fetching
 
   useEffect(() => {
     // Fetch multiple locations from FastAPI
@@ -56,6 +57,24 @@ function App() {
       .catch((error) => {
         console.error("Error submitting data:", error);
       });
+  };
+
+  const handleFetchLocations = () => {
+    setFetching(true);
+    axios
+      .get("http://127.0.0.1:8000/locations") // Replace with your FastAPI endpoint
+      .then((response) => {
+        setLocations(response.data);
+        setFetching(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching locations:", error);
+        setFetching(false);
+      });
+  };
+
+  const handleClearLocations = () => {
+    setLocations([]);
   };
 
   return (
@@ -137,6 +156,38 @@ function App() {
           }}
         >
           Submit
+        </button>
+        <button
+          onClick={handleFetchLocations}
+          style={{
+            width: "100%",
+            marginTop: "10px",
+            padding: "10px",
+            borderRadius: "5px",
+            border: "none",
+            background: "#28a745",
+            color: "white",
+            fontWeight: "bold",
+            cursor: "pointer",
+          }}
+        >
+          {fetching ? "Fetching..." : "Fetch Locations"}
+        </button>
+        <button
+          onClick={handleClearLocations}
+          style={{
+            width: "100%",
+            marginTop: "10px",
+            padding: "10px",
+            borderRadius: "5px",
+            border: "none",
+            background: "#dc3545",
+            color: "white",
+            fontWeight: "bold",
+            cursor: "pointer",
+          }}
+        >
+          Clear
         </button>
       </form>
       <MapContainer center={[9.503243879785233, 102.83203125]} zoom={6} style={{ height: "100%", width: "100%" }}>
