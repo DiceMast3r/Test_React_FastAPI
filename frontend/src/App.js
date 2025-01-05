@@ -24,7 +24,7 @@ function App() {
   useEffect(() => {
     // Fetch multiple locations from FastAPI
     axios
-      .get("http://127.0.0.1:8000/locations") // Replace with your FastAPI endpoint
+      .get("https://fastapi-backend-752567379150.asia-southeast1.run.app/locations") // Replace with your FastAPI endpoint
       .then((response) => {
         setLocations(response.data);
       })
@@ -50,7 +50,7 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://127.0.0.1:8000/submit", formData) // Replace with your FastAPI endpoint
+      .post("https://fastapi-backend-752567379150.asia-southeast1.run.app/submit", formData) // Replace with your FastAPI endpoint
       .then((response) => {
         console.log("Data submitted successfully:", response.data);
       })
@@ -62,7 +62,7 @@ function App() {
   const handleFetchLocations = () => {
     setFetching(true);
     axios
-      .get("http://127.0.0.1:8000/locations") // Replace with your FastAPI endpoint
+      .get("https://fastapi-backend-752567379150.asia-southeast1.run.app/locations") // Replace with your FastAPI endpoint
       .then((response) => {
         setLocations(response.data);
         setFetching(false);
@@ -75,6 +75,19 @@ function App() {
 
   const handleClearLocations = () => {
     setLocations([]);
+  };
+
+  const handleFetchFirestoreData = () => {
+    axios
+      .get("https://fastapi-backend-752567379150.asia-southeast1.run.app/firestore-data") // Replace with your FastAPI endpoint
+      .then((response) => {
+        response.data.forEach(doc => {
+          console.log("Document name:", doc.name, "Data:", doc);
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching Firestore data:", error);
+      });
   };
 
   return (
@@ -188,6 +201,22 @@ function App() {
           }}
         >
           Clear
+        </button>
+        <button
+          onClick={handleFetchFirestoreData}
+          style={{
+            width: "100%",
+            marginTop: "10px",
+            padding: "10px",
+            borderRadius: "5px",
+            border: "none",
+            background: "#17a2b8",
+            color: "white",
+            fontWeight: "bold",
+            cursor: "pointer",
+          }}
+        >
+          Fetch Firestore Data
         </button>
       </form>
       <MapContainer center={[9.503243879785233, 102.83203125]} zoom={6} style={{ height: "100%", width: "100%" }}>
